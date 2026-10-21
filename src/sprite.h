@@ -4,6 +4,7 @@
 #include "basic_transform.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
+#include <array>
 
 class Sprite {  // could derive from sf::Drawable if you're willing to pay for a vptr.
 public:

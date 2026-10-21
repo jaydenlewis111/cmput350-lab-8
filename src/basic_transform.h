@@ -7,16 +7,17 @@
 #include <SFML/System/Vector2.hpp>
 
 struct BasicTransform {
-    // TODO: Determine if possible in general, else provide counterexample:
-    // compose(f, g) is equivalent to first applying g, then applying f.
+    // Closed under composition: f(g(p)) = (f.scale * g.scale) * p
+    // + f.scale * g.translation + f.translation 
     static BasicTransform compose(const BasicTransform& f, const BasicTransform& g) {
-        return {};
-    };
+        return {f.scale * g.scale, f.scale * g.translation + f.translation};
+    }
 
-    // TODO: Determine if possible in general, else provide counterexample:
+    // Nonzero scales are invertible: solve p = scale * x + translation for x.
     static BasicTransform inverse(const BasicTransform& f) {
-        return {};
-    };
+        assert(f.scale.x != 0.f && f.scale.y != 0.f);
+        return {sf::Vector2f{1.f, 1.f} / f.scale, -f.translation / f.scale};
+    }
 
     constexpr BasicTransform(const sf::Vector2f& scale = {1.f, 1.f},
                              const sf::Vector2f& translation = {0.f, 0.f})

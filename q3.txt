@@ -1,0 +1,7 @@
+1. Move mTransform (BasicTransform) into a separate transform component, since position and scale
+   also apply to cameras, colliders, lights, and other objects without sprits. The rendering system
+   would then obtain both the sprite and transform components before drawing.
+
+2. Render overlapping translucent sprites from back to front, so each foreground sprite is composited 
+   over the layers behind it. Store an explicit depth or layer order and sort by it before drawing,
+   since changing the order changes the blended result.
